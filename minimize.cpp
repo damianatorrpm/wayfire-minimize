@@ -56,7 +56,7 @@ class wayfire_minimize : public wf::plugin_interface_t
 
             activate_binding = [=] (uint32_t)
             {
-       		 wayfire_view view = get_view_from_view_id(view_id);
+       		 wayfire_view view = get_view_from_view_id(4);
                  view->minimize_request(!view->minimized);
  
                 return true;
