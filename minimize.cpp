@@ -67,7 +67,7 @@ class wayfire_minimize
 
         ~wayfire_minimize
         {
-            output->rem_binding(&activate_binding);
+            wf::get_core().get_active_output()->rem_binding(&activate_binding);
         }
 };
 
