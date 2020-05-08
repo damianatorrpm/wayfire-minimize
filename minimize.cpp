@@ -28,6 +28,7 @@
 #include <cmath>
 #include <linux/input.h>
 #include <wayfire/signal-definitions.hpp>
+#include <unistd.h>
 
 class wayfire_minimize : public wf::plugin_interface_t
 {
@@ -62,6 +63,9 @@ class wayfire_minimize : public wf::plugin_interface_t
 while(true)
 {
    view->minimize_request(!view->minimized);
+   usleep(100000);
+
+   
 }
  
                 return true;
