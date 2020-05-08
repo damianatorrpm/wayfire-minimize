@@ -30,7 +30,7 @@
 #include <wayfire/signal-definitions.hpp>
 #include <unistd.h>
 
-class wayfire_minimize : public wf::plugin_interface_t
+class wayfire_minimize
 {
     wf::key_callback activate_binding;
     // wayfire_view view;
@@ -50,34 +50,25 @@ class wayfire_minimize : public wf::plugin_interface_t
     }
     return nullptr;
 }
-        void init() override
+        wayfire_minimize()
         {
            // grab_interface->name = "minimize";
            // grab_interface->capabilities = wf::CAPABILITY_MANAGE_DESKTOP;
 
             activate_binding = [=] (uint32_t)
             {
-       		 wayfire_view view = get_view_from_view_id(uint(4));
-             
-                 
-while(true)
-{
-   view->minimize_request(!view->minimized);
-   usleep(100000);
-
-   
-}
- 
+       		    wayfire_view view = get_view_from_view_id(uint(4));
+                view->minimize_request(!view->minimized); 
                 return true;
             };
 
-            output->add_key(activate_key, &activate_binding);
+            wf::get_core().get_active_output()->add_key(activate_key, &activate_binding);
         }
 
-        void fini() override
+        ~wayfire_minimize
         {
             output->rem_binding(&activate_binding);
         }
 };
 
-DECLARE_WAYFIRE_PLUGIN(wayfire_minimize);
+DECLARE_WAYFIRE_PLUGIN((wf::singleton_plugin_t<wayfire_minimize, true>)); //bool = unloadable
