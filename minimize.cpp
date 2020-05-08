@@ -37,6 +37,18 @@ class wayfire_minimize : public wf::plugin_interface_t
     wf::option_wrapper_t<wf::keybinding_t> activate_key{"minimize/activate"};
 
     public:
+    get_view_from_view_id(uint view_id)
+{
+    std::vector<nonstd::observer_ptr<wf::view_interface_t>> view_vector = wf::get_core().get_all_views();
+    for (auto it = begin(view_vector); it != end(view_vector); ++it)
+    {
+        if (it->get()->get_id() == view_id)
+        {
+            return it->get();
+        }
+    }
+    return nullptr;
+}
         void init() override
         {
             grab_interface->name = "minimize";
@@ -44,11 +56,9 @@ class wayfire_minimize : public wf::plugin_interface_t
 
             activate_binding = [=] (uint32_t)
             {
-                auto view = wf::get_core().get_cursor_focus_view();
-
-		if (view && view->role == wf::VIEW_ROLE_TOPLEVEL && view->is_mapped())
-		    view->minimize_request(true);
-
+       		 wayfire_view view = get_view_from_view_id(view_id);
+                 view->minimize_request(!view->minimized);
+ 
                 return true;
             };
 
