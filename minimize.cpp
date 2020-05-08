@@ -51,8 +51,8 @@ class wayfire_minimize : public wf::plugin_interface_t
 }
         void init() override
         {
-            grab_interface->name = "minimize";
-            grab_interface->capabilities = wf::CAPABILITY_MANAGE_DESKTOP;
+           // grab_interface->name = "minimize";
+           // grab_interface->capabilities = wf::CAPABILITY_MANAGE_DESKTOP;
 
             activate_binding = [=] (uint32_t)
             {
