@@ -29,6 +29,7 @@
 #include <linux/input.h>
 #include <wayfire/signal-definitions.hpp>
 #include <unistd.h>
+#include <wayfire/singleton-plugin.hpp>
 
 class wayfire_minimize
 {
@@ -65,7 +66,7 @@ class wayfire_minimize
             wf::get_core().get_active_output()->add_key(activate_key, &activate_binding);
         }
 
-        ~wayfire_minimize
+        ~wayfire_minimize()
         {
             wf::get_core().get_active_output()->rem_binding(&activate_binding);
         }
