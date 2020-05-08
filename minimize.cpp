@@ -37,7 +37,7 @@ class wayfire_minimize : public wf::plugin_interface_t
     wf::option_wrapper_t<wf::keybinding_t> activate_key{"minimize/activate"};
 
     public:
-    get_view_from_view_id(uint view_id)
+    nonstd::observer_ptr<wf::view_interface_t> get_view_from_view_id(uint view_id)
 {
     std::vector<nonstd::observer_ptr<wf::view_interface_t>> view_vector = wf::get_core().get_all_views();
     for (auto it = begin(view_vector); it != end(view_vector); ++it)
@@ -56,7 +56,7 @@ class wayfire_minimize : public wf::plugin_interface_t
 
             activate_binding = [=] (uint32_t)
             {
-       		 wayfire_view view = get_view_from_view_id(4);
+       		 wayfire_view view = get_view_from_view_id(uint(4));
                  view->minimize_request(!view->minimized);
  
                 return true;
